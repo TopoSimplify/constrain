@@ -1,7 +1,6 @@
 package constrain
 
 import (
-	"simplex/ctx"
 	"simplex/node"
 	"github.com/intdxdt/rtree"
 )
@@ -17,10 +16,6 @@ func asInts(iter []interface{}) []int {
 		ints[i] = o.(int)
 	}
 	return ints
-}
-
-func castAsContextGeom(o interface{}) *ctx.ContextGeometry {
-	return o.(*ctx.ContextGeometry)
 }
 
 //node.Nodes from Rtree boxes

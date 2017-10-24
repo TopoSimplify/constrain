@@ -15,6 +15,7 @@ func ToSelfIntersects(self lnr.Linear, constVerts []int, scoreRelation scoreRela
 	var atVertexSet *sset.SSet
 	var polyline = self.Polyline()
 	var options = self.Options()
+
 	if !options.KeepSelfIntersects {
 		return self.NodeQueue(), true, atVertexSet
 	}

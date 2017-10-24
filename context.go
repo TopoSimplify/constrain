@@ -1,42 +1,39 @@
 package constrain
 
 import (
+	"simplex/ctx"
 	"simplex/lnr"
-	"simplex/knn"
 	"simplex/node"
 	"simplex/relate"
+	"simplex/deform"
 	"github.com/intdxdt/rtree"
 )
 
-//Constrain for context neighbours
-// finds the collapsibility of hull with respect to context hull neighbours
-// if hull is deformable, its added to selections
-func ContextRelation(self lnr.Linear, ctxdb *rtree.RTree, hull *node.Node, selections *node.Nodes) bool {
+func ByGeometricRelation(self lnr.Linear, hull *node.Node, cg *ctx.ContextGeometry) bool {
+	return relate.IsGeomRelateValid(self, hull, cg)
+}
+
+func ByMinDistRelation(self lnr.Linear, hull *node.Node, cg *ctx.ContextGeometry) bool {
+	return relate.IsDistRelateValid(self, hull, cg)
+}
+
+func BySideRelation(self lnr.Linear, hull *node.Node, cg *ctx.ContextGeometry) bool {
+	return relate.IsDirRelateValid(self, hull, cg)
+}
+
+//Constrain for self-intersection as a result of simplification
+//returns boolean : is hull collapsible
+func BySelfIntersection(self lnr.Linear, hull *node.Node, hulldb *rtree.RTree, selections *node.Nodes) bool {
+	//assume hull is valid and proof otherwise
 	var bln = true
-	var options = self.Options()
-	// find context neighbours - if valid
-	var ctxs = knn.FindNeighbours(ctxdb, hull, options.MinDist)
-	for _, contxt := range ctxs {
-		if !bln {
-			break
+	// find hull neighbours
+	var hulls = deform.Select(self, hulldb, hull)
+	for _, h := range hulls {
+		//if bln & selection contains current hull : bln : false
+		if bln && (h == hull) {
+			bln = false //cmp &
 		}
-
-		cg := castAsContextGeom(contxt)
-		if bln && options.GeomRelation {
-			bln = relate.IsGeomRelateValid(self, hull, cg)
-		}
-
-		if bln && options.DistRelation {
-			bln = relate.IsDistRelateValid(self, hull, cg)
-		}
-
-		if bln && options.DirRelation {
-			bln = relate.IsDirRelateValid(self, hull, cg)
-		}
-	}
-
-	if !bln {
-		selections.Push(hull)
+		selections.Push(h)
 	}
 
 	return bln
