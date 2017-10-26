@@ -16,15 +16,16 @@ func ToSelfIntersects(self lnr.Linear, constVerts []int, scoreRelation scoreRela
 	var polyline = self.Polyline()
 	var options = self.Options()
 
+	var queue = self.NodeQueue()
 	if !options.KeepSelfIntersects {
-		return self.NodeQueue(), true, atVertexSet
+		return queue, true, atVertexSet
 	}
 
 	var hulldb = rtree.NewRTree(16)
-	var selfInters = lnr.SelfIntersection(self)
+	var selfInters = lnr.SelfIntersection(self.Polyline())
 
 	var data = make([]rtree.BoxObj, 0)
-	for _, v := range *self.NodeQueue().DataView() {
+	for _, v := range *queue.DataView() {
 		data = append(data, v.(*node.Node))
 	}
 	hulldb.Load(data)
