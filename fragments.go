@@ -30,7 +30,7 @@ func atSelfIntersectFragments(self lnr.Linear, hulldb *rtree.RTree,
 
 		idxs = asInts(inter.Meta.SelfVertices.Values())
 		for _, hull := range hulls.DataView() {
-			hsubs = split.AtIndex(self, hull, idxs, dp.NodeGeometry)
+			hsubs = split.AtIndex(hull, idxs, dp.NodeGeometry)
 
 			if len(hsubs) == 0 && (hull.Range.Size() == fragmentSize) {
 				hsubs = append(hsubs, hull)

@@ -8,24 +8,28 @@ import (
 	"github.com/intdxdt/sset"
 	"github.com/intdxdt/deque"
 	"github.com/intdxdt/rtree"
+	"simplex/pln"
+	"simplex/opts"
 )
 
 //Constrain for planar self-intersection
-func ToSelfIntersects(self lnr.Linear, constVerts []int, scoreRelation scoreRelationFn) (*deque.Deque, bool, *sset.SSet) {
+func ToSelfIntersects(
+	nodeQueue *deque.Deque,
+	polyline *pln.Polyline,
+	options *opts.Opts,
+	constVerts []int,
+	scoreRelation scoreRelationFn,
+) (*deque.Deque, bool, *sset.SSet) {
 	var atVertexSet *sset.SSet
-	var polyline = self.Polyline()
-	var options = self.Options()
-
-	var queue = self.NodeQueue()
 	if !options.KeepSelfIntersects {
-		return queue, true, atVertexSet
+		return nodeQueue, true, atVertexSet
 	}
 
 	var hulldb = rtree.NewRTree(16)
-	var selfInters = lnr.SelfIntersection(self.Polyline())
+	var selfInters = lnr.SelfIntersection(polyline)
 
 	var data = make([]rtree.BoxObj, 0)
-	for _, v := range *queue.DataView() {
+	for _, v := range *nodeQueue.DataView() {
 		data = append(data, v.(*node.Node))
 	}
 	hulldb.Load(data)
