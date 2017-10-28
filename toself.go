@@ -2,14 +2,14 @@ package constrain
 
 import (
 	"simplex/ctx"
+	"simplex/pln"
 	"simplex/lnr"
 	"simplex/node"
+	"simplex/opts"
 	"github.com/intdxdt/cmp"
 	"github.com/intdxdt/sset"
 	"github.com/intdxdt/deque"
 	"github.com/intdxdt/rtree"
-	"simplex/pln"
-	"simplex/opts"
 )
 
 //Constrain for planar self-intersection

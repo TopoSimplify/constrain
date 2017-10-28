@@ -19,7 +19,7 @@ func atSelfIntersectFragments(
 	atVertexSet *sset.SSet,
 	scoreFn lnr.ScoreFn,
 	scoreRelation scoreRelationFn,
-	) map[[2]int]*node.Node {
+) map[[2]int]*node.Node {
 	var fragmentSize = 1
 	var hsubs []*node.Node
 	var hulls *node.Nodes
