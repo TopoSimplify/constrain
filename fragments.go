@@ -13,8 +13,13 @@ import (
 )
 
 //constrain hulls at self intersection fragments - planar self-intersection
-func atSelfIntersectFragments(self lnr.Linear, hulldb *rtree.RTree,
-	selfInters *ctx.ContextGeometries, atVertexSet *sset.SSet, scoreRelation scoreRelationFn) map[[2]int]*node.Node {
+func atSelfIntersectFragments(
+	hullDB *rtree.RTree,
+	selfInters *ctx.ContextGeometries,
+	atVertexSet *sset.SSet,
+	scoreFn lnr.ScoreFn,
+	scoreRelation scoreRelationFn,
+	) map[[2]int]*node.Node {
 	var fragmentSize = 1
 	var hsubs []*node.Node
 	var hulls *node.Nodes
@@ -26,7 +31,7 @@ func atSelfIntersectFragments(self lnr.Linear, hulldb *rtree.RTree,
 			continue
 		}
 
-		hulls = nodesFromBoxes(knn.FindNeighbours(hulldb, inter, EpsilonDist)).Sort()
+		hulls = nodesFromBoxes(knn.FindNeighbours(hullDB, inter, EpsilonDist)).Sort()
 
 		idxs = asInts(inter.Meta.SelfVertices.Values())
 		for _, hull := range hulls.DataView() {
@@ -40,18 +45,18 @@ func atSelfIntersectFragments(self lnr.Linear, hulldb *rtree.RTree,
 				continue
 			}
 
-			hulldb.Remove(hull)
-			keep, rm := merge.ContiguousFragmentsBySize(self,
-				hsubs, hulldb, atVertexSet, unmerged, fragmentSize,
-				scoreRelation, dp.NodeGeometry, EpsilonDist,
+			hullDB.Remove(hull)
+			keep, rm := merge.ContiguousFragmentsBySize(
+				hsubs, hullDB, atVertexSet, unmerged, fragmentSize,
+				scoreRelation, scoreFn, dp.NodeGeometry, EpsilonDist,
 			)
 
 			for _, h := range rm {
-				hulldb.Remove(h)
+				hullDB.Remove(h)
 			}
 
 			for _, h := range keep {
-				hulldb.Insert(h)
+				hullDB.Insert(h)
 			}
 		}
 	}

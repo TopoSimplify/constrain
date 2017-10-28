@@ -18,6 +18,7 @@ func ToSelfIntersects(
 	polyline *pln.Polyline,
 	options *opts.Opts,
 	constVerts []int,
+	scoreFn lnr.ScoreFn,
 	scoreRelation scoreRelationFn,
 ) (*deque.Deque, bool, *sset.SSet) {
 	var atVertexSet *sset.SSet
@@ -60,7 +61,9 @@ func ToSelfIntersects(
 	//try to merge fragments from first attempt
 	var mcount = 2
 	for mcount > 0 {
-		fragments := atSelfIntersectFragments(self, hulldb, selfInters, atVertexSet, scoreRelation)
+		fragments := atSelfIntersectFragments(
+			hulldb, selfInters, atVertexSet, scoreFn, scoreRelation,
+		)
 		if len(fragments) == 0 {
 			break
 		}
