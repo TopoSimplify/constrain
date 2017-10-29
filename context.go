@@ -2,32 +2,32 @@ package constrain
 
 import (
 	"simplex/ctx"
-	"simplex/lnr"
 	"simplex/node"
 	"simplex/relate"
 	"simplex/deform"
 	"github.com/intdxdt/rtree"
+	"simplex/opts"
 )
 
-func ByGeometricRelation(self lnr.Linear, hull *node.Node, cg *ctx.ContextGeometry) bool {
-	return relate.IsGeomRelateValid(self, hull, cg)
+func ByGeometricRelation(hull *node.Node, cg *ctx.ContextGeometry) bool {
+	return relate.IsGeomRelateValid(hull, cg)
 }
 
-func ByMinDistRelation(self lnr.Linear, hull *node.Node, cg *ctx.ContextGeometry) bool {
-	return relate.IsDistRelateValid(self, hull, cg)
+func ByMinDistRelation(options *opts.Opts, hull *node.Node, cg *ctx.ContextGeometry) bool {
+	return relate.IsDistRelateValid(options, hull, cg)
 }
 
-func BySideRelation(self lnr.Linear, hull *node.Node, cg *ctx.ContextGeometry) bool {
-	return relate.IsDirRelateValid(self, hull, cg)
+func BySideRelation(hull *node.Node, cg *ctx.ContextGeometry) bool {
+	return relate.IsDirRelateValid(hull, cg)
 }
 
 //Constrain for self-intersection as a result of simplification
 //returns boolean : is hull collapsible
-func BySelfIntersection(self lnr.Linear, hull *node.Node, hulldb *rtree.RTree, selections *node.Nodes) bool {
+func BySelfIntersection(options *opts.Opts, hull *node.Node, hulldb *rtree.RTree, selections *node.Nodes) bool {
 	//assume hull is valid and proof otherwise
 	var bln = true
 	// find hull neighbours
-	var hulls = deform.Select(self, hulldb, hull)
+	var hulls = deform.Select(options, hulldb, hull)
 	for _, h := range hulls {
 		//if bln & selection contains current hull : bln : false
 		if bln && (h == hull) {

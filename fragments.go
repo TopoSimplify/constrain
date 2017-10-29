@@ -20,10 +20,10 @@ func atSelfIntersectFragments(
 	scoreFn lnr.ScoreFn,
 	scoreRelation scoreRelationFn,
 ) map[[2]int]*node.Node {
+	var idxs []int
 	var fragmentSize = 1
 	var hsubs []*node.Node
 	var hulls *node.Nodes
-	var idxs []int
 	var unmerged = make(map[[2]int]*node.Node, 0)
 
 	for _, inter := range selfInters.DataView() {
