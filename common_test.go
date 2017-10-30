@@ -1,18 +1,14 @@
 package constrain
 
 import (
-	"testing"
+	"fmt"
 	"simplex/dp"
 	"simplex/pln"
 	"simplex/rng"
 	"simplex/node"
-	"simplex/opts"
 	"github.com/intdxdt/geom"
-	"github.com/franela/goblin"
-	"github.com/intdxdt/deque"
-	"simplex/offset"
-	"fmt"
-	"time"
+	"simplex/ctx"
+	"github.com/intdxdt/rtree"
 )
 
 func DebugPrintNodes(ns []*node.Node) {
@@ -21,59 +17,8 @@ func DebugPrintNodes(ns []*node.Node) {
 	}
 }
 
-func TestCommon(t *testing.T) {
-	g := goblin.Goblin(t)
-	g.Describe("constrain", func() {
-		g.It("should test constrain to self intersects", func() {
-			g.Timeout(1 * time.Hour)
-			var coords = linearCoords("LINESTRING ( 740 380, 720 440, 760 460, 740 520, 860 520, 860 620, 740 620, 740 520, 640 520, 640 420, 841 420, 840 320 )")
-			//var cong = geom.NewPolygonFromWKT("POLYGON (( 780 560, 780 580, 800 580, 800 560, 780 560 ))")
-			var polyline = pln.New(coords)
-			options := &opts.Opts{
-				Threshold:              1.0,
-				MinDist:                1.0,
-				RelaxDist:              1.0,
-				KeepSelfIntersects:     true,
-				AvoidNewSelfIntersects: true,
-				GeomRelation:           true,
-				DistRelation:           false,
-				DirRelation:            false,
-			}
-			var nodes = createNodes([][]int{{0, 5}, {5, 9}, {9, 11}}, coords)
-			//DebugPrintNodes(nodes)
-			g.Assert(len(nodes)).Equal(3)
-			var queue = deque.NewDeque()
-			for _, n := range nodes {
-				queue.Append(n)
-			}
-
-			var constVerts = []int{3}
-			var scoreFn = offset.MaxOffset
-			var scoreRelationFn = func(f float64) bool {
-				if f <= options.Threshold {
-					return true
-				}
-				return false
-			}
-			var que, bln, set = ToSelfIntersects(
-				queue, polyline, options,
-				constVerts, scoreFn, scoreRelationFn,
-			)
-			g.Assert(bln).IsTrue()
-			nodes = []*node.Node{}
-			for _, n := range *que.DataView() {
-				nodes = append(nodes, n.(*node.Node))
-			}
-			g.Assert(set.Values()).Equal([]interface{}{3, 7})
-			g.Assert(len(nodes)).Equal(5)
-
-			//que, bln, set = ToSelfIntersects(
-			//	queue, polyline, options,
-			//	constVerts, scoreFn, scoreRelationFn,
-			//)
-
-		})
-	})
+func ctxGeom(wkt string) *ctx.ContextGeometry {
+	return ctx.New(geom.NewGeometry(wkt), 0, -1)
 }
 
 func linearCoords(wkt string) []*geom.Point {
@@ -87,6 +32,15 @@ func createNodes(indxs [][]int, coords []*geom.Point) []*node.Node {
 		hulls = append(hulls, node.NewFromPolyline(poly, rng.NewRange(o[0], o[1]), dp.NodeGeometry))
 	}
 	return hulls
+}
+
+//hull db
+func hullsDB(ns []*node.Node) *rtree.RTree {
+	db := rtree.NewRTree(8)
+	for _, n := range ns {
+		db.Insert(n)
+	}
+	return db
 }
 
 //hull geom
