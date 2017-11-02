@@ -10,6 +10,7 @@ import (
 	"github.com/intdxdt/sset"
 	"github.com/intdxdt/deque"
 	"github.com/intdxdt/rtree"
+	"simplex/db"
 )
 
 //Constrain for planar self-intersection
@@ -26,7 +27,7 @@ func ToSelfIntersects(
 		return nodeQueue, true, atVertexSet
 	}
 
-	var hulldb = rtree.NewRTree(16)
+	var hulldb = db.NewDB(16)
 	var selfInters = lnr.SelfIntersection(polyline)
 
 	var data = make([]rtree.BoxObj, 0)
