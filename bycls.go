@@ -1,15 +1,15 @@
 package constrain
 
 import (
+    "simplex/opts"
     "simplex/node"
     "simplex/deform"
-    "simplex/opts"
-    "simplex/db"
+    "github.com/intdxdt/rtree"
 )
 
 //Constrain for self-intersection as a result of simplification
 //returns boolean : is hull collapsible
-func ByFeatureClassIntersection(options *opts.Opts, hull *node.Node, hulldb *db.DB, selections *node.Nodes) bool {
+func ByFeatureClassIntersection(options *opts.Opts, hull *node.Node, hulldb *rtree.RTree, selections *node.Nodes) bool {
     var bln = true
     //find hull neighbours
     var hulls = deform.SelectFeatureClass(options, hulldb, hull)

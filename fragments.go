@@ -9,12 +9,13 @@ import (
     "simplex/split"
     "simplex/merge"
     "github.com/intdxdt/sset"
-    "simplex/db"
+
+    "github.com/intdxdt/rtree"
 )
 
 //constrain hulls at self intersection fragments - planar self-intersection
 func atSelfIntersectFragments(
-    hullDB *db.DB,
+    hullDB *rtree.RTree,
     selfInters *ctx.ContextGeometries,
     atVertexSet *sset.SSet,
     scoreFn lnr.ScoreFn,

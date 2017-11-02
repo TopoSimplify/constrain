@@ -4,12 +4,13 @@ import (
     "simplex/node"
     "simplex/deform"
     "simplex/opts"
-    "simplex/db"
+
+    "github.com/intdxdt/rtree"
 )
 
 //Constrain for self-intersection as a result of simplification
 //returns boolean : is hull collapsible
-func BySelfIntersection(options *opts.Opts, hull *node.Node, hulldb *db.DB, selections *node.Nodes) bool {
+func BySelfIntersection(options *opts.Opts, hull *node.Node, hulldb *rtree.RTree, selections *node.Nodes) bool {
     //assume hull is valid and proof otherwise
     var bln = true
     // find hull neighbours
