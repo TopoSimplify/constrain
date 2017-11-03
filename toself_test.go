@@ -5,7 +5,6 @@ import (
 	"time"
 	"simplex/pln"
 	"simplex/opts"
-	"github.com/intdxdt/deque"
 	"simplex/offset"
 	"simplex/node"
 	"testing"
@@ -32,11 +31,7 @@ func TestToSelfIntersects(t *testing.T) {
 			var nodes = createNodes([][]int{{0, 5}, {5, 9}, {9, 11}}, coords)
 
 			g.Assert(len(nodes)).Equal(3)
-			var queue = deque.NewDeque()
-			for _, n := range nodes {
-				queue.Append(n)
-			}
-
+			var queue = nodes[:len(nodes):len(nodes)]
 			var constVerts = []int{10}
 			var scoreFn = offset.MaxOffset
 			var scoreRelationFn = func(f float64) bool {
@@ -61,8 +56,8 @@ func TestToSelfIntersects(t *testing.T) {
 			g.Assert(bln).IsTrue()
 			g.Assert(bln).IsTrue()
 			nodes = []*node.Node{}
-			for _, n := range *que.DataView() {
-				nodes = append(nodes, n.(*node.Node))
+			for _, n := range que {
+				nodes = append(nodes, n)
 			}
 			g.Assert(set.Values()).Equal([]interface{}{3, 7, 10})
 			g.Assert(len(nodes)).Equal(6)
@@ -92,10 +87,7 @@ func TestToSelfIntersects(t *testing.T) {
 			var nodes = createNodes([][]int{{0, 3}, {3, 4}, {4, 5}, {5, 6}, {6, 7}, {7, 9}, {9, 11}}, coords)
 
 			g.Assert(len(nodes)).Equal(7)
-			var queue = deque.NewDeque()
-			for _, n := range nodes {
-				queue.Append(n)
-			}
+			var queue = nodes[:len(nodes):len(nodes)]
 
 			var constVerts = []int{10, 7}
 			var scoreFn = offset.MaxOffset
@@ -121,7 +113,7 @@ func TestToSelfIntersects(t *testing.T) {
 			//for _, h := range *que.DataView(){
 			//	fmt.Println(h.(*node.Node).Geom.WKT())
 			//}
-			g.Assert(que.Len()).Equal(5)
+			g.Assert(len(que)).Equal(5)
 			g.Assert(set.Values()).Equal([]interface{}{3, 7, 10})
 		})
 	})

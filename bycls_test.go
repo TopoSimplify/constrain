@@ -26,7 +26,7 @@ func TestByFeatureClassIntersection(t *testing.T) {
 			}
 
 			var db = hullsDB(hulls)
-			var sels = node.NewNodes()
+			var sels = []*node.Node{}
 
 			coords = linearCoords("LINESTRING ( 760 660, 800 620, 800 600, 780 580, 720 580, 700 600 )")
 			hulls = createNodes([][]int{{0, len(coords) - 1}}, coords)
@@ -45,8 +45,8 @@ func TestByFeatureClassIntersection(t *testing.T) {
 			}
 			var q2 = hulls[0]
 
-			g.Assert(ByFeatureClassIntersection(options, q1, db, sels)).IsFalse()
-			g.Assert(ByFeatureClassIntersection(options, q2, db, sels)).IsTrue()
+			g.Assert(ByFeatureClassIntersection(options, q1, db, &sels)).IsFalse()
+			g.Assert(ByFeatureClassIntersection(options, q2, db, &sels)).IsTrue()
 
 		})
 	})

@@ -10,7 +10,7 @@ import (
 
 //Constrain for self-intersection as a result of simplification
 //returns boolean : is hull collapsible
-func BySelfIntersection(options *opts.Opts, hull *node.Node, hulldb *rtree.RTree, selections *node.Nodes) bool {
+func BySelfIntersection(options *opts.Opts, hull *node.Node, hulldb *rtree.RTree, selections *[]*node.Node) bool {
     //assume hull is valid and proof otherwise
     var bln = true
     // find hull neighbours
@@ -20,7 +20,7 @@ func BySelfIntersection(options *opts.Opts, hull *node.Node, hulldb *rtree.RTree
         if bln && (h == hull) {
             bln = false //cmp &
         }
-        selections.Push(h)
+        *selections = append(*selections, h)
     }
 
     return bln
