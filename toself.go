@@ -22,7 +22,7 @@ func ToSelfIntersects(
 	scoreFn lnr.ScoreFn,
 	scoreRelation scoreRelationFn,
 ) ([]*node.Node, bool, *sset.SSet) {
-	var atVertexSet *sset.SSet
+	var atVertexSet = sset.NewSSet(cmp.Int)
 	if !options.KeepSelfIntersects {
 		return nodeQueue, true, atVertexSet
 	}
@@ -36,7 +36,6 @@ func ToSelfIntersects(
 	}
 	hulldb.Load(data)
 
-	atVertexSet = sset.NewSSet(cmp.Int)
 	for _, inter := range selfInters.DataView() {
 		if inter.IsSelfVertex() {
 			atVertexSet = atVertexSet.Union(inter.Meta.SelfVertices)
