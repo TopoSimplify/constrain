@@ -1,9 +1,9 @@
 package constrain
 
 import (
-	"github.com/franela/goblin"
 	"time"
 	"testing"
+	"github.com/franela/goblin"
 )
 
 func TestByGeometricRelation(t *testing.T) {

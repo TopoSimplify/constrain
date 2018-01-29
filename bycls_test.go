@@ -3,9 +3,9 @@ package constrain
 import (
 	"time"
 	"testing"
-	"simplex/opts"
-	"simplex/node"
 	"simplex/dp"
+	"simplex/node"
+	"simplex/opts"
 	"simplex/offset"
 	"github.com/franela/goblin"
 )

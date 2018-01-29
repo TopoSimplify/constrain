@@ -8,7 +8,6 @@ import (
 	"simplex/node"
 	"github.com/intdxdt/geom"
 	"simplex/ctx"
-
 	"github.com/intdxdt/rtree"
 )
 

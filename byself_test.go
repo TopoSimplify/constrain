@@ -1,11 +1,11 @@
 package constrain
 
 import (
-	"github.com/franela/goblin"
 	"time"
 	"testing"
 	"simplex/opts"
 	"simplex/node"
+	"github.com/franela/goblin"
 )
 
 func TestBySelfIntersection(t *testing.T) {
