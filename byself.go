@@ -2,9 +2,8 @@ package constrain
 
 import (
     "simplex/node"
-    "simplex/deform"
     "simplex/opts"
-
+    "simplex/deform"
     "github.com/intdxdt/rtree"
 )
 
