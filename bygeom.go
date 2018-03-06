@@ -6,6 +6,6 @@ import (
 	"simplex/relate"
 )
 
-func ByGeometricRelation(hull *node.Node, cg *ctx.ContextGeometry) bool {
+func ByGeometricRelation(hull *node.Node, cg *ctx.ContextGeometries) bool {
 	return relate.IsGeomRelateValid(hull, cg)
 }

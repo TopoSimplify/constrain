@@ -7,6 +7,6 @@ import (
 	"simplex/relate"
 )
 
-func ByMinDistRelation(options *opts.Opts, hull *node.Node, cg *ctx.ContextGeometry) bool {
+func ByMinDistRelation(options *opts.Opts, hull *node.Node, cg *ctx.ContextGeometries) bool {
 	return relate.IsDistRelateValid(options, hull, cg)
 }

@@ -16,9 +16,9 @@ func TestByGeometricRelation(t *testing.T) {
 			var cg_b = ctxGeom("POLYGON (( 660 420, 660 460, 680 460, 680 420, 660 420 ))")
 			var cg_c = ctxGeom("POLYGON (( 660 500, 660 540, 680 540, 680 500, 660 500 ))")
 			var hull = createNodes([][]int{{0, len(coords) - 1}}, coords)[0]
-			g.Assert(ByGeometricRelation(hull, cg_a)).IsTrue() //disjoint
-			g.Assert(ByGeometricRelation(hull, cg_b)).IsFalse() //disjoint
-			g.Assert(ByGeometricRelation(hull, cg_c)).IsFalse() //intersects
+			g.Assert(ByGeometricRelation(hull, cg_a.AsContextGeometries())).IsTrue() //disjoint
+			g.Assert(ByGeometricRelation(hull, cg_b.AsContextGeometries())).IsFalse() //disjoint
+			g.Assert(ByGeometricRelation(hull, cg_c.AsContextGeometries())).IsFalse() //intersects
 		})
 	})
 }

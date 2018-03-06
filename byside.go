@@ -6,6 +6,6 @@ import (
 	"simplex/relate"
 )
 
-func BySideRelation(hull *node.Node, cg *ctx.ContextGeometry) bool {
-	return relate.IsDirRelateValid(hull, cg)
+func BySideRelation(hull *node.Node, cgs *ctx.ContextGeometries) bool {
+	return relate.IsDirRelateValid(hull, cgs)
 }
