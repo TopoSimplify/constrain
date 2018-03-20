@@ -35,8 +35,9 @@ func atSelfIntersectFragments(
 		if !inter.IsSelfVertex() {
 			continue
 		}
-
-		hulls = common.NodesFromBoxes(knn.FindNeighbours(hullDB, inter, EpsilonDist))
+		hulls = common.NodesFromBoxes(
+			knn.FindNeighbours(hullDB, inter, EpsilonDist),
+		)
 
 		idxs = common.AsInts(inter.Meta.SelfVertices.Values())
 		for _, hull := range hulls {
