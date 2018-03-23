@@ -1,16 +1,14 @@
 package constrain
 
 import (
-	"simplex/ctx"
-	"simplex/pln"
-	"simplex/lnr"
-	"simplex/node"
-	"simplex/opts"
-	"github.com/intdxdt/cmp"
-	"github.com/intdxdt/sset"
-	"github.com/intdxdt/rtree"
-	"simplex/common"
 	"sort"
+	"simplex/node"
+	"simplex/pln"
+	"simplex/opts"
+	"simplex/ctx"
+	"simplex/lnr"
+	"simplex/common"
+	"github.com/intdxdt/rtree"
 )
 
 //Constrain for planar self-intersection
@@ -33,12 +31,12 @@ func ToSelfIntersects(
 
 	for _, inter := range selfInters.DataView() {
 		if inter.IsNonPlanarVertex() {
-			for _, v := range inter.Meta.NonPlanarVertices.Values() {
-				atVertexSet[v.(int)] = true
+			for _, v := range inter.Meta.NonPlanar {
+				atVertexSet[v] = true
 			}
 		} else if inter.IsPlanarVertex() {
-			for _, v := range inter.Meta.PlanarVertices.Values() {
-				atVertexSet[v.(int)] = true
+			for _, v := range inter.Meta.Planar {
+				atVertexSet[v] = true
 			}
 		}
 	}
@@ -53,8 +51,7 @@ func ToSelfIntersects(
 		var pt = polyline.Coordinate(i)
 		var cg = ctx.New(pt.Clone(), 0, -1).AsPlanarVertex()
 
-		cg.Meta.PlanarVertices = sset.NewSSet(cmp.Int, 4).Add(i)
-		cg.Meta.NonPlanarVertices = sset.NewSSet(cmp.Int, 4)
+		cg.Meta.Planar = append(cg.Meta.Planar, i)
 		selfInters.Push(cg)
 	}
 

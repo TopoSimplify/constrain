@@ -20,9 +20,9 @@ func splitAtSelfIntersects(hullDB *rtree.RTree, selfInters *ctx.ContextGeometrie
 	for _, inter := range selfInters.DataView() {
 		var idxs []int
 		if inter.IsPlanarVertex() {
-			idxs = common.AsInts(inter.Meta.PlanarVertices.Values())
+			idxs = inter.Meta.Planar
 		} else if inter.IsNonPlanarVertex() {
-			idxs = common.AsInts(inter.Meta.NonPlanarVertices.Values())
+			idxs = inter.Meta.NonPlanar
 		}
 		if len(idxs) == 0 {
 			continue
