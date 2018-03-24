@@ -30,14 +30,12 @@ func ToSelfIntersects(
 	hulldb.Load(data)
 
 	for _, inter := range selfInters.DataView() {
+		var indices = inter.Meta.Planar
 		if inter.IsNonPlanarVertex() {
-			for _, v := range inter.Meta.NonPlanar {
-				atVertexSet[v] = true
-			}
-		} else if inter.IsPlanarVertex() {
-			for _, v := range inter.Meta.Planar {
-				atVertexSet[v] = true
-			}
+			indices = inter.Meta.NonPlanar
+		}
+		for _, v := range indices {
+			atVertexSet[v] = true
 		}
 	}
 
@@ -55,8 +53,6 @@ func ToSelfIntersects(
 		selfInters.Push(cg)
 	}
 
-	//constrain fragments around self intersects
-	//try to merge fragments from first attempt
 	splitAtSelfIntersects(hulldb, selfInters)
 
 	nodes = common.NodesFromRtreeNodes(hulldb.All())

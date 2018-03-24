@@ -4,7 +4,6 @@ import (
 	"github.com/franela/goblin"
 	"time"
 	"testing"
-	"fmt"
 )
 
 func TestBySideRelation(t *testing.T) {
@@ -17,8 +16,6 @@ func TestBySideRelation(t *testing.T) {
 			var cgB = ctxGeom("POLYGON (( 660 440, 660 460, 680 460, 680 440, 660 440 ))")
 			var cgC = ctxGeom("POLYGON (( 660 540, 660 560, 680 560, 700 520, 660 540 ))")
 			var hull = createNodes([][]int{{0, len(coords) - 1}}, coords)[0]
-
-			fmt.Println(hull)
 
 			g.Assert(BySideRelation(hull, cgA.AsContextGeometries())).IsTrue()
 			g.Assert(BySideRelation(hull, cgB.AsContextGeometries())).IsFalse()
