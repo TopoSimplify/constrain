@@ -21,7 +21,8 @@ func TestToSelfIntersects(t *testing.T) {
 				Threshold:              1.0,
 				MinDist:                1.0,
 				RelaxDist:              1.0,
-				KeepSelfIntersects:     true,
+				PlanarSelf:             true,
+				NonPlanarSelf:          true,
 				AvoidNewSelfIntersects: true,
 				GeomRelation:           true,
 				DistRelation:           false,
@@ -33,7 +34,8 @@ func TestToSelfIntersects(t *testing.T) {
 			var queue = nodes[:len(nodes):len(nodes)]
 			var constVerts = []int{}
 
-			options.KeepSelfIntersects = false
+			options.PlanarSelf = false
+			options.NonPlanarSelf = false
 			var que, bln, set = ToSelfIntersects(
 				queue, polyline, options, constVerts,
 			)
@@ -42,7 +44,8 @@ func TestToSelfIntersects(t *testing.T) {
 			g.Assert(len(set)).Equal(0)
 
 			constVerts = []int{10}
-			options.KeepSelfIntersects = true
+			options.PlanarSelf = true
+			options.NonPlanarSelf = true
 			que, bln, set = ToSelfIntersects(
 				queue, polyline, options, constVerts,
 			)
@@ -60,7 +63,8 @@ func TestToSelfIntersects(t *testing.T) {
 				Threshold:              1.0,
 				MinDist:                1.0,
 				RelaxDist:              1.0,
-				KeepSelfIntersects:     true,
+				PlanarSelf:             true,
+				NonPlanarSelf:          true,
 				AvoidNewSelfIntersects: true,
 				GeomRelation:           true,
 				DistRelation:           false,
@@ -72,7 +76,8 @@ func TestToSelfIntersects(t *testing.T) {
 			var queue = nodes[:len(nodes):len(nodes)]
 			var constVerts = []int{10}
 
-			options.KeepSelfIntersects = false
+			options.PlanarSelf = false
+			options.NonPlanarSelf = false
 			var que, bln, set = ToSelfIntersects(
 				queue, polyline, options, constVerts,
 			)
@@ -81,7 +86,8 @@ func TestToSelfIntersects(t *testing.T) {
 			g.Assert(len(set)).Equal(0)
 
 			constVerts = []int{10}
-			options.KeepSelfIntersects = true
+			options.PlanarSelf = true
+			options.NonPlanarSelf = true
 			que, bln, set = ToSelfIntersects(
 				queue, polyline, options, constVerts,
 			)
@@ -102,7 +108,8 @@ func TestToSelfIntersects(t *testing.T) {
 				Threshold:              300.0,
 				MinDist:                300.0,
 				RelaxDist:              300.0,
-				KeepSelfIntersects:     true,
+				PlanarSelf:             true,
+				NonPlanarSelf:          true,
 				AvoidNewSelfIntersects: true,
 				GeomRelation:           true,
 				DistRelation:           false,
@@ -113,14 +120,16 @@ func TestToSelfIntersects(t *testing.T) {
 			var queue = nodes[:len(nodes):len(nodes)]
 			var constVerts = []int{10}
 
-			options.KeepSelfIntersects = false
+			options.PlanarSelf = false
+			options.NonPlanarSelf = false
 			var que, bln, _ = ToSelfIntersects(
 				queue, polyline, options, constVerts,
 			)
 			g.Assert(bln).IsTrue()
 			g.Assert(len(que)).Equal(len(nodes))
 
-			options.KeepSelfIntersects = true
+			options.PlanarSelf = true
+			options.NonPlanarSelf = true
 			que, bln, _ = ToSelfIntersects(
 				queue, polyline, options, constVerts,
 			)
@@ -135,7 +144,8 @@ func TestToSelfIntersects(t *testing.T) {
 				Threshold:              300.0,
 				MinDist:                300.0,
 				RelaxDist:              300.0,
-				KeepSelfIntersects:     true,
+				PlanarSelf:             true,
+				NonPlanarSelf:          true,
 				AvoidNewSelfIntersects: true,
 				GeomRelation:           true,
 				DistRelation:           false,
@@ -146,7 +156,8 @@ func TestToSelfIntersects(t *testing.T) {
 			var queue = nodes[:len(nodes):len(nodes)]
 			var constVerts = []int{0, 11}
 
-			options.KeepSelfIntersects = true
+			options.PlanarSelf = true
+			options.NonPlanarSelf = true
 			var que, bln, _ = ToSelfIntersects(
 				queue, polyline, options, constVerts,
 			)

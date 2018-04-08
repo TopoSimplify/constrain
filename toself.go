@@ -16,12 +16,13 @@ func ToSelfIntersects(
 	nodes []*node.Node, polyline *pln.Polyline, options *opts.Opts, constVerts []int,
 ) ([]*node.Node, bool, []int) {
 	var atVertexSet = make(map[int]bool)
-	if !options.KeepSelfIntersects {
+	if !options.PlanarSelf {
 		return nodes, true, []int{}
 	}
 
 	var hulldb = rtree.NewRTree(4)
-	var selfInters = lnr.SelfIntersection(polyline)
+	var planar, nonPlanar = options.PlanarSelf, options.NonPlanarSelf
+	var selfInters = lnr.SelfIntersection(polyline, planar, nonPlanar)
 
 	var data = make([]rtree.BoxObj, 0)
 	for _, v := range nodes {
