@@ -3,7 +3,7 @@ package constrain
 import (
 	"github.com/TopoSimplify/ctx"
 	"github.com/TopoSimplify/node"
-	"relate"
+	"github.com/TopoSimplify/relate"
 )
 
 func BySideRelation(hull *node.Node, cgs *ctx.ContextGeometries) bool {
