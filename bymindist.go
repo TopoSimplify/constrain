@@ -1,10 +1,10 @@
 package constrain
 
 import (
-	"simplex/opts"
-	"simplex/node"
-	"simplex/ctx"
-	"simplex/relate"
+	"github.com/TopoSimplify/opts"
+	"github.com/TopoSimplify/node"
+	"github.com/TopoSimplify/ctx"
+	"relate"
 )
 
 func ByMinDistRelation(options *opts.Opts, hull *node.Node, cg *ctx.ContextGeometries) bool {

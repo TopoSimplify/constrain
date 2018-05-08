@@ -1,10 +1,10 @@
 package constrain
 
 import (
-    "simplex/opts"
-    "simplex/node"
-    "simplex/deform"
     "github.com/intdxdt/rtree"
+    "github.com/TopoSimplify/opts"
+    "github.com/TopoSimplify/node"
+    "github.com/TopoSimplify/deform"
 )
 
 //Constrain for self-intersection as a result of simplification

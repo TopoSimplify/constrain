@@ -1,9 +1,9 @@
 package constrain
 
 import (
-	"simplex/ctx"
-	"simplex/node"
-	"simplex/relate"
+	"github.com/TopoSimplify/ctx"
+	"github.com/TopoSimplify/node"
+	"relate"
 )
 
 func BySideRelation(hull *node.Node, cgs *ctx.ContextGeometries) bool {

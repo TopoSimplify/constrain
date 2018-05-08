@@ -1,8 +1,8 @@
 package constrain
 
 import (
-	"simplex/node"
-	"simplex/ctx"
+	"github.com/TopoSimplify/node"
+	"github.com/TopoSimplify/ctx"
 	"simplex/relate"
 )
 

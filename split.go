@@ -1,12 +1,12 @@
 package constrain
 
 import (
-	"simplex/dp"
-	"simplex/knn"
-	"simplex/ctx"
-	"simplex/node"
-	"simplex/split"
-	"simplex/common"
+	"github.com/TopoSimplify/dp"
+	"github.com/TopoSimplify/knn"
+	"github.com/TopoSimplify/ctx"
+	"github.com/TopoSimplify/node"
+	"github.com/TopoSimplify/split"
+	"github.com/TopoSimplify/common"
 	"github.com/intdxdt/rtree"
 )
 

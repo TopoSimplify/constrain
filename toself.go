@@ -2,12 +2,12 @@ package constrain
 
 import (
 	"sort"
-	"simplex/node"
-	"simplex/pln"
-	"simplex/opts"
-	"simplex/ctx"
-	"simplex/lnr"
-	"simplex/common"
+	"github.com/TopoSimplify/node"
+	"github.com/TopoSimplify/pln"
+	"github.com/TopoSimplify/opts"
+	"github.com/TopoSimplify/ctx"
+	"github.com/TopoSimplify/lnr"
+	"github.com/TopoSimplify/common"
 	"github.com/intdxdt/rtree"
 )
 

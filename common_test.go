@@ -1,13 +1,13 @@
 package constrain
 
 import (
-	"simplex/dp"
-	"simplex/pln"
-	"simplex/rng"
-	"simplex/node"
 	"github.com/intdxdt/geom"
-	"simplex/ctx"
 	"github.com/intdxdt/rtree"
+	"github.com/TopoSimplify/dp"
+	"github.com/TopoSimplify/pln"
+	"github.com/TopoSimplify/rng"
+	"github.com/TopoSimplify/node"
+	"github.com/TopoSimplify/ctx"
 )
 
 func ctxGeom(wkt string) *ctx.ContextGeometry {

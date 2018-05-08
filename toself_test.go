@@ -3,10 +3,10 @@ package constrain
 import (
 	"time"
 	"testing"
-	"simplex/pln"
-	"simplex/opts"
+	"github.com/TopoSimplify/pln"
+	"github.com/TopoSimplify/opts"
+	"github.com/TopoSimplify/node"
 	"github.com/franela/goblin"
-	"simplex/node"
 )
 
 func TestToSelfIntersects(t *testing.T) {

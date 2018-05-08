@@ -3,8 +3,8 @@ package constrain
 import (
 	"time"
 	"testing"
-	"simplex/opts"
-	"simplex/node"
+	"github.com/TopoSimplify/opts"
+	"github.com/TopoSimplify/node"
 	"github.com/franela/goblin"
 )
 

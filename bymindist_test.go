@@ -1,10 +1,10 @@
 package constrain
 
 import (
-	"github.com/franela/goblin"
 	"time"
 	"testing"
-	"simplex/opts"
+	"github.com/franela/goblin"
+	"github.com/TopoSimplify/opts"
 )
 
 func TestByMinDistRelation(t *testing.T) {
