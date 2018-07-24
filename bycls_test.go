@@ -8,6 +8,7 @@ import (
 	"github.com/TopoSimplify/opts"
 	"github.com/TopoSimplify/offset"
 	"github.com/franela/goblin"
+	"github.com/intdxdt/rtree"
 )
 
 func TestByFeatureClassIntersection(t *testing.T) {
@@ -30,18 +31,20 @@ func TestByFeatureClassIntersection(t *testing.T) {
 
 			coords = linearCoords("LINESTRING ( 760 660, 800 620, 800 600, 780 580, 720 580, 700 600 )")
 			hulls = createNodes([][]int{{0, len(coords) - 1}}, coords)
-
+			var  id = -1
 			for _, h := range hulls {
+				id++
 				h.Instance = inst
-				db.Insert(h)
+				db.Insert(rtree.Object(id, h.Bounds(), h))
 			}
 			var q1 = hulls[0]
 			coords = linearCoords("LINESTRING ( 680 640, 660 660, 640 700, 660 740, 720 760, 740 780 )")
 			hulls = createNodes([][]int{{0, len(coords) - 1}}, coords)
 
 			for _, h := range hulls {
+				id++
 				h.Instance = inst
-				db.Insert(h)
+				db.Insert(rtree.Object(id, h.Bounds(), h))
 			}
 			var q2 = hulls[0]
 

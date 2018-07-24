@@ -6,7 +6,6 @@ import (
 	"github.com/TopoSimplify/ctx"
 	"github.com/TopoSimplify/node"
 	"github.com/TopoSimplify/split"
-	"github.com/TopoSimplify/common"
 	"github.com/intdxdt/rtree"
 )
 
@@ -15,7 +14,7 @@ const EpsilonDist = 1.0e-5
 //constrain hulls at self intersection fragments - planar self-intersection
 func splitAtSelfIntersects(hullDB *rtree.RTree, selfInters *ctx.ContextGeometries) {
 	var tokens []*node.Node
-	var hulls []*node.Node
+	var objects []*rtree.Obj
 
 	for _, inter := range selfInters.DataView() {
 		var idxs []int
@@ -28,20 +27,19 @@ func splitAtSelfIntersects(hullDB *rtree.RTree, selfInters *ctx.ContextGeometrie
 			continue
 		}
 
-		hulls = common.NodesFromBoxes(
-			knn.FindNeighbours(hullDB, inter, EpsilonDist),
-		)
-
-		for _, hull := range hulls {
+		objects = knn.FindNeighbours(hullDB, inter.Geom, EpsilonDist)
+		for i  := range objects {
+			var obj = objects[i]
+			var hull = obj.Object.(*node.Node)
 			tokens = split.AtIndex(hull, idxs, dp.NodeGeometry)
 
 			if len(tokens) == 0 {
 				continue
 			}
 
-			hullDB.Remove(hull)
+			hullDB.RemoveObj(obj)
 			for _, h := range tokens {
-				hullDB.Insert(h)
+				hullDB.Insert(rtree.Object(obj.Id, h.Bounds(), h))
 			}
 		}
 	}

@@ -24,9 +24,9 @@ func ToSelfIntersects(
 	var planar, nonPlanar = options.PlanarSelf, options.NonPlanarSelf
 	var selfInters = lnr.SelfIntersection(polyline, planar, nonPlanar)
 
-	var data = make([]rtree.BoxObj, 0)
-	for _, v := range nodes {
-		data = append(data, v)
+	var data = make([]*rtree.Obj, 0)
+	for i := range nodes {
+		data = append(data, rtree.Object(i, nodes[i].Bounds(), nodes[i]))
 	}
 	hulldb.Load(data)
 
@@ -47,8 +47,8 @@ func ToSelfIntersects(
 			continue
 		}
 		atVertexSet[i] = true
-		var pt = polyline.Coordinate(i)
-		var cg = ctx.New(pt.Clone(), 0, -1).AsPlanarVertex()
+		var pt = &polyline.Coordinates[i]
+		var cg = ctx.New(pt, 0, -1).AsPlanarVertex()
 
 		cg.Meta.Planar = append(cg.Meta.Planar, i)
 		selfInters.Push(cg)
@@ -56,10 +56,10 @@ func ToSelfIntersects(
 
 	splitAtSelfIntersects(hulldb, selfInters)
 
-	nodes = common.NodesFromRtreeNodes(hulldb.All())
+	nodes = common.NodesFromObjects(hulldb.All())
 	sort.Sort(node.Nodes(nodes))
 
-	indices := make([]int, 0, len(atVertexSet))
+	var indices = make([]int, 0, len(atVertexSet))
 	for v := range atVertexSet {
 		indices = append(indices, v)
 	}
