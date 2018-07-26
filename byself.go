@@ -1,15 +1,15 @@
 package constrain
 
 import (
-    "github.com/intdxdt/rtree"
     "github.com/TopoSimplify/node"
     "github.com/TopoSimplify/opts"
     "github.com/TopoSimplify/deform"
+    "github.com/TopoSimplify/hdb"
 )
 
 //Constrain for self-intersection as a result of simplification
 //returns boolean : is hull collapsible
-func BySelfIntersection(options *opts.Opts, hull *node.Node, hulldb *rtree.RTree, selections *[]*node.Node) bool {
+func BySelfIntersection(options *opts.Opts, hull *node.Node, hulldb *hdb.Hdb, selections *[]*node.Node) bool {
     //assume hull is valid and proof otherwise
     var bln = true
     // find hull neighbours

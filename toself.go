@@ -7,8 +7,7 @@ import (
 	"github.com/TopoSimplify/opts"
 	"github.com/TopoSimplify/ctx"
 	"github.com/TopoSimplify/lnr"
-	"github.com/TopoSimplify/common"
-	"github.com/intdxdt/rtree"
+	"github.com/TopoSimplify/hdb"
 )
 
 //Constrain for planar self-intersection
@@ -20,15 +19,9 @@ func ToSelfIntersects(
 		return nodes, true, []int{}
 	}
 
-	var hulldb = rtree.NewRTree(4)
+	var hulldb = hdb.NewHdb().Load(nodes)
 	var planar, nonPlanar = options.PlanarSelf, options.NonPlanarSelf
 	var selfInters = lnr.SelfIntersection(polyline, planar, nonPlanar)
-
-	var data = make([]*rtree.Obj, 0)
-	for i := range nodes {
-		data = append(data, rtree.Object(i, nodes[i].Bounds(), nodes[i]))
-	}
-	hulldb.Load(data)
 
 	for _, inter := range selfInters.DataView() {
 		var indices = inter.Meta.Planar
@@ -56,7 +49,7 @@ func ToSelfIntersects(
 
 	splitAtSelfIntersects(hulldb, selfInters)
 
-	nodes = common.NodesFromObjects(hulldb.All())
+	nodes = hulldb.All()
 	sort.Sort(node.Nodes(nodes))
 
 	var indices = make([]int, 0, len(atVertexSet))

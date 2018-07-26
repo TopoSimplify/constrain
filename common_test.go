@@ -2,7 +2,6 @@ package constrain
 
 import (
 	"github.com/intdxdt/geom"
-	"github.com/intdxdt/rtree"
 	"github.com/TopoSimplify/dp"
 	"github.com/TopoSimplify/pln"
 	"github.com/TopoSimplify/rng"
@@ -26,14 +25,5 @@ func createNodes(indxs [][]int, coords []geom.Point) []*node.Node {
 		hulls = append(hulls, node.New(poly.SubCoordinates(r), r, dp.NodeGeometry))
 	}
 	return hulls
-}
-
-//hull db
-func hullsDB(ns []*node.Node) *rtree.RTree {
-	var database = rtree.NewRTree()
-	for i := range ns {
-		database.Insert(rtree.Object(i, ns[i].Bounds(), ns[i]))
-	}
-	return database
 }
 
