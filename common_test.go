@@ -17,12 +17,12 @@ func linearCoords(wkt string) []geom.Point {
 	return geom.NewLineStringFromWKT(wkt).Coordinates()
 }
 
-func createNodes(indxs [][]int, coords []geom.Point) []*node.Node {
+func createNodes(indxs [][]int, coords []geom.Point) []node.Node {
 	poly := pln.New(coords)
-	hulls := make([]*node.Node, 0)
+	hulls := make([]node.Node, 0)
 	for _, o := range indxs {
 		r := rng.Range(o[0], o[1])
-		hulls = append(hulls, node.New(poly.SubCoordinates(r), r, dp.NodeGeometry))
+		hulls = append(hulls, node.CreateNode(poly.SubCoordinates(r), r, dp.NodeGeometry))
 	}
 	return hulls
 }

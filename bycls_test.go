@@ -22,31 +22,32 @@ func TestByFeatureClassIntersection(t *testing.T) {
 			var hulls = createNodes([][]int{{0, 3}, {3, 8}, {8, 13}, {13, 17}, {17, len(coords) - 1}}, coords)
 			var inst = dp.New(coords, options, offset.MaxOffset)
 
-			for _, h := range hulls {
-				h.Instance = inst
+			for i := range hulls {
+				hulls[i].Instance = inst
 			}
 			var db = hdb.NewHdb().Load(hulls)
 			var sels = []*node.Node{}
 
 			coords = linearCoords("LINESTRING ( 760 660, 800 620, 800 600, 780 580, 720 580, 700 600 )")
 			hulls = createNodes([][]int{{0, len(coords) - 1}}, coords)
-			for _, h := range hulls {
-				h.Instance = inst
+			for i := range hulls {
+				hulls[i].Instance = inst
 			}
 			db.Load(hulls)
+
 			var q1 = hulls[0]
 			coords = linearCoords("LINESTRING ( 680 640, 660 660, 640 700, 660 740, 720 760, 740 780 )")
 			hulls = createNodes([][]int{{0, len(coords) - 1}}, coords)
 
-			for _, h := range hulls {
-				h.Instance = inst
+			for i := range hulls {
+				hulls[i].Instance = inst
 			}
 			db.Load(hulls)
 
 			var q2 = hulls[0]
 
-			g.Assert(ByFeatureClassIntersection(options, q1, db, &sels)).IsFalse()
-			g.Assert(ByFeatureClassIntersection(options, q2, db, &sels)).IsTrue()
+			g.Assert(ByFeatureClassIntersection(options, &q1, db, &sels)).IsFalse()
+			g.Assert(ByFeatureClassIntersection(options, &q2, db, &sels)).IsTrue()
 
 		})
 	})

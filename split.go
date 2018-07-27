@@ -13,9 +13,9 @@ const EpsilonDist = 1.0e-5
 
 //constrain hulls at self intersection fragments - planar self-intersection
 func splitAtSelfIntersects(db *hdb.Hdb, selfInters *ctx.ContextGeometries) {
-	var tokens []*node.Node
-	var nodes []*node.Node
-	var hull *node.Node
+	var tokens []node.Node
+	var nodes  []*node.Node
+	var hull     *node.Node
 
 	for _, inter := range selfInters.DataView() {
 		var idxs []int
@@ -35,7 +35,7 @@ func splitAtSelfIntersects(db *hdb.Hdb, selfInters *ctx.ContextGeometries) {
 			if len(tokens) == 0 {
 				continue
 			}
-			db.RemoveNode(hull).Load(tokens)
+			db.Remove(hull).Load(tokens)
 		}
 	}
 }

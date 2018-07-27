@@ -93,7 +93,7 @@ func TestToSelfIntersects(t *testing.T) {
 			)
 
 			g.Assert(bln).IsTrue()
-			nodes = []*node.Node{}
+			nodes = []node.Node{}
 
 			g.Assert(len(que)).Equal(6)
 			g.Assert(set).Equal([]int{3, 7, 10})

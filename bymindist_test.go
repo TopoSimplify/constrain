@@ -19,9 +19,9 @@ func TestByMinDistRelation(t *testing.T) {
 			var hull = createNodes([][]int{{0, len(coords) - 1}}, coords)[0]
 			var options = &opts.Opts{MinDist:10}
 
-			g.Assert(ByMinDistRelation(options, hull, cg_a.AsContextGeometries())).IsTrue() // expands mindist
-			g.Assert(ByMinDistRelation(options, hull, cg_b.AsContextGeometries())).IsFalse() //reduces mindist
-			g.Assert(ByMinDistRelation(options, hull, cg_c.AsContextGeometries())).IsTrue() //expands mindist
+			g.Assert(ByMinDistRelation(options, &hull, cg_a.AsContextGeometries())).IsTrue() // expands mindist
+			g.Assert(ByMinDistRelation(options, &hull, cg_b.AsContextGeometries())).IsFalse() //reduces mindist
+			g.Assert(ByMinDistRelation(options, &hull, cg_c.AsContextGeometries())).IsTrue() //expands mindist
 		})
 	})
 }

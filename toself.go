@@ -12,8 +12,8 @@ import (
 
 //Constrain for planar self-intersection
 func ToSelfIntersects(
-	nodes []*node.Node, polyline *pln.Polyline, options *opts.Opts, constVerts []int,
-) ([]*node.Node, bool, []int) {
+	nodes []node.Node, polyline *pln.Polyline, options *opts.Opts, constVerts []int,
+) ([]node.Node, bool, []int) {
 	var atVertexSet = make(map[int]bool)
 	if !options.PlanarSelf {
 		return nodes, true, []int{}
@@ -49,7 +49,11 @@ func ToSelfIntersects(
 
 	splitAtSelfIntersects(hulldb, selfInters)
 
-	nodes = hulldb.All()
+	nodes = make([]node.Node, 0, len(nodes))
+	for _,n := range hulldb.All() {
+		nodes = append(nodes, *n)
+	}
+
 	sort.Sort(node.Nodes(nodes))
 
 	var indices = make([]int, 0, len(atVertexSet))
