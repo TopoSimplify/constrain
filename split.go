@@ -7,12 +7,13 @@ import (
 	"github.com/TopoSimplify/node"
 	"github.com/TopoSimplify/split"
 	"github.com/TopoSimplify/hdb"
+	"github.com/intdxdt/iter"
 )
 
 const EpsilonDist = 1.0e-5
 
 //constrain hulls at self intersection fragments - planar self-intersection
-func splitAtSelfIntersects(db *hdb.Hdb, selfInters *ctx.ContextGeometries) {
+func splitAtSelfIntersects(id *iter.Igen, db *hdb.Hdb, selfInters *ctx.ContextGeometries) {
 	var tokens []node.Node
 	var nodes  []*node.Node
 	var hull     *node.Node
@@ -31,7 +32,7 @@ func splitAtSelfIntersects(db *hdb.Hdb, selfInters *ctx.ContextGeometries) {
 		nodes = knn.FindNeighbours(db, inter.Geom, EpsilonDist)
 		for i  := range nodes {
 			hull = nodes[i]
-			tokens = split.AtIndex(hull, idxs, dp.NodeGeometry)
+			tokens = split.AtIndex(id, hull, idxs, dp.NodeGeometry)
 			if len(tokens) == 0 {
 				continue
 			}

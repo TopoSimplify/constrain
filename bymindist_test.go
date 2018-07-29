@@ -5,10 +5,12 @@ import (
 	"testing"
 	"github.com/franela/goblin"
 	"github.com/TopoSimplify/opts"
+	"github.com/intdxdt/iter"
 )
 
 func TestByMinDistRelation(t *testing.T) {
-	g := goblin.Goblin(t)
+	var g = goblin.Goblin(t)
+	var id = iter.NewIgen()
 	g.Describe("constrain by mindist relation", func() {
 		g.It("should test constrain by context geometry", func() {
 			g.Timeout(1 * time.Hour)
@@ -16,7 +18,7 @@ func TestByMinDistRelation(t *testing.T) {
 			var cg_a = ctxGeom("POLYGON (( 660 360, 660 380, 680 380, 680 360, 660 360 ))")
 			var cg_b = ctxGeom("POLYGON (( 660 440, 660 460, 680 460, 680 440, 660 440 ))")
 			var cg_c = ctxGeom("POLYGON (( 660 540, 660 560, 680 560, 700 520, 660 540 ))")
-			var hull = createNodes([][]int{{0, len(coords) - 1}}, coords)[0]
+			var hull = createNodes(id,[][]int{{0, len(coords) - 1}}, coords)[0]
 			var options = &opts.Opts{MinDist:10}
 
 			g.Assert(ByMinDistRelation(options, &hull, cg_a.AsContextGeometries())).IsTrue() // expands mindist

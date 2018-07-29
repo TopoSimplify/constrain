@@ -8,10 +8,11 @@ import (
 	"github.com/TopoSimplify/ctx"
 	"github.com/TopoSimplify/lnr"
 	"github.com/TopoSimplify/hdb"
+	"github.com/intdxdt/iter"
 )
 
 //Constrain for planar self-intersection
-func ToSelfIntersects(
+func ToSelfIntersects( id *iter.Igen,
 	nodes []node.Node, polyline *pln.Polyline, options *opts.Opts, constVerts []int,
 ) ([]node.Node, bool, []int) {
 	var atVertexSet = make(map[int]bool)
@@ -47,7 +48,7 @@ func ToSelfIntersects(
 		selfInters.Push(cg)
 	}
 
-	splitAtSelfIntersects(hulldb, selfInters)
+	splitAtSelfIntersects(id, hulldb, selfInters)
 
 	nodes = make([]node.Node, 0, len(nodes))
 	for _,n := range hulldb.All() {

@@ -7,10 +7,12 @@ import (
 	"github.com/TopoSimplify/opts"
 	"github.com/TopoSimplify/node"
 	"github.com/franela/goblin"
+	"github.com/intdxdt/iter"
 )
 
 func TestToSelfIntersects(t *testing.T) {
-	g := goblin.Goblin(t)
+	var g = goblin.Goblin(t)
+	var id = iter.NewIgen()
 	g.Describe("constrain", func() {
 		g.It("should test constrain to self intersects - 1", func() {
 			g.Timeout(1 * time.Hour)
@@ -28,7 +30,7 @@ func TestToSelfIntersects(t *testing.T) {
 				DistRelation:           false,
 				DirRelation:            false,
 			}
-			var nodes = createNodes([][]int{{0, 5}, {5, 9}, {9, 11}}, coords)
+			var nodes = createNodes(id,[][]int{{0, 5}, {5, 9}, {9, 11}}, coords)
 
 			g.Assert(len(nodes)).Equal(3)
 			var queue = nodes[:len(nodes):len(nodes)]
@@ -36,7 +38,7 @@ func TestToSelfIntersects(t *testing.T) {
 
 			options.PlanarSelf = false
 			options.NonPlanarSelf = false
-			var que, bln, set = ToSelfIntersects(
+			var que, bln, set = ToSelfIntersects(id,
 				queue, polyline, options, constVerts,
 			)
 			g.Assert(bln).IsTrue()
@@ -46,7 +48,7 @@ func TestToSelfIntersects(t *testing.T) {
 			constVerts = []int{10}
 			options.PlanarSelf = true
 			options.NonPlanarSelf = true
-			que, bln, set = ToSelfIntersects(
+			que, bln, set = ToSelfIntersects(id,
 				queue, polyline, options, constVerts,
 			)
 
@@ -70,7 +72,7 @@ func TestToSelfIntersects(t *testing.T) {
 				DistRelation:           false,
 				DirRelation:            false,
 			}
-			var nodes = createNodes([][]int{{0, 5}, {5, 9}, {9, 11}}, coords)
+			var nodes = createNodes(id,[][]int{{0, 5}, {5, 9}, {9, 11}}, coords)
 
 			g.Assert(len(nodes)).Equal(3)
 			var queue = nodes[:len(nodes):len(nodes)]
@@ -78,7 +80,7 @@ func TestToSelfIntersects(t *testing.T) {
 
 			options.PlanarSelf = false
 			options.NonPlanarSelf = false
-			var que, bln, set = ToSelfIntersects(
+			var que, bln, set = ToSelfIntersects(id,
 				queue, polyline, options, constVerts,
 			)
 			g.Assert(bln).IsTrue()
@@ -88,7 +90,7 @@ func TestToSelfIntersects(t *testing.T) {
 			constVerts = []int{10}
 			options.PlanarSelf = true
 			options.NonPlanarSelf = true
-			que, bln, set = ToSelfIntersects(
+			que, bln, set = ToSelfIntersects(id,
 				queue, polyline, options, constVerts,
 			)
 
@@ -115,14 +117,14 @@ func TestToSelfIntersects(t *testing.T) {
 				DistRelation:           false,
 				DirRelation:            false,
 			}
-			var nodes = createNodes([][]int{{0, 3}, {3, 4}, {4, 5}, {5, 6}, {6, 7}, {7, 9}, {9, 11}}, coords)
+			var nodes = createNodes(id,[][]int{{0, 3}, {3, 4}, {4, 5}, {5, 6}, {6, 7}, {7, 9}, {9, 11}}, coords)
 			g.Assert(len(nodes)).Equal(7)
 			var queue = nodes[:len(nodes):len(nodes)]
 			var constVerts = []int{10}
 
 			options.PlanarSelf = false
 			options.NonPlanarSelf = false
-			var que, bln, _ = ToSelfIntersects(
+			var que, bln, _ = ToSelfIntersects(id,
 				queue, polyline, options, constVerts,
 			)
 			g.Assert(bln).IsTrue()
@@ -130,7 +132,7 @@ func TestToSelfIntersects(t *testing.T) {
 
 			options.PlanarSelf = true
 			options.NonPlanarSelf = true
-			que, bln, _ = ToSelfIntersects(
+			que, bln, _ = ToSelfIntersects(id,
 				queue, polyline, options, constVerts,
 			)
 			g.Assert(len(que)).Equal(9)
@@ -151,14 +153,14 @@ func TestToSelfIntersects(t *testing.T) {
 				DistRelation:           false,
 				DirRelation:            false,
 			}
-			var nodes = createNodes([][]int{{0, 11}}, coords)
+			var nodes = createNodes(id,[][]int{{0, 11}}, coords)
 			g.Assert(len(nodes)).Equal(1)
 			var queue = nodes[:len(nodes):len(nodes)]
 			var constVerts = []int{0, 11}
 
 			options.PlanarSelf = true
 			options.NonPlanarSelf = true
-			var que, bln, _ = ToSelfIntersects(
+			var que, bln, _ = ToSelfIntersects(id,
 				queue, polyline, options, constVerts,
 			)
 			g.Assert(bln).IsTrue()

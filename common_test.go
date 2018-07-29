@@ -7,6 +7,7 @@ import (
 	"github.com/TopoSimplify/rng"
 	"github.com/TopoSimplify/node"
 	"github.com/TopoSimplify/ctx"
+	"github.com/intdxdt/iter"
 )
 
 func ctxGeom(wkt string) *ctx.ContextGeometry {
@@ -17,12 +18,12 @@ func linearCoords(wkt string) []geom.Point {
 	return geom.NewLineStringFromWKT(wkt).Coordinates()
 }
 
-func createNodes(indxs [][]int, coords []geom.Point) []node.Node {
-	poly := pln.New(coords)
-	hulls := make([]node.Node, 0)
-	for _, o := range indxs {
-		r := rng.Range(o[0], o[1])
-		hulls = append(hulls, node.CreateNode(poly.SubCoordinates(r), r, dp.NodeGeometry))
+func createNodes(id *iter.Igen, indxs [][]int, coords []geom.Point) []node.Node {
+	var poly  = pln.New(coords)
+	var hulls = make([]node.Node, 0)
+	for i := range indxs {
+		r := rng.Range(indxs[i][0], indxs[i][1])
+		hulls = append(hulls, node.CreateNode(id, poly.SubCoordinates(r), r, dp.NodeGeometry))
 	}
 	return hulls
 }
