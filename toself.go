@@ -41,7 +41,7 @@ func ToSelfIntersects( id *iter.Igen,
 			continue
 		}
 		atVertexSet[i] = true
-		var pt = &polyline.Coordinates[i]
+		var pt = polyline.Coordinates.Pt(i)
 		var cg = ctx.New(pt, 0, -1).AsPlanarVertex()
 
 		cg.Meta.Planar = append(cg.Meta.Planar, i)

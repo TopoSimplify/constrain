@@ -8,6 +8,7 @@ import (
 	"github.com/TopoSimplify/node"
 	"github.com/franela/goblin"
 	"github.com/intdxdt/iter"
+	"github.com/TopoSimplify/common"
 )
 
 func TestToSelfIntersects(t *testing.T) {
@@ -16,7 +17,7 @@ func TestToSelfIntersects(t *testing.T) {
 	g.Describe("constrain", func() {
 		g.It("should test constrain to self intersects - 1", func() {
 			g.Timeout(1 * time.Hour)
-			var coords = linearCoords("LINESTRING ( 740 380, 720 440, 760 460, 740 520, 860 520, 860 620, 740 620, 740 520, 640 520, 640 420, 841 420, 840 320 )")
+			var coords = common.LinearCoords("LINESTRING ( 740 380, 720 440, 760 460, 740 520, 860 520, 860 620, 740 620, 740 520, 640 520, 640 420, 841 420, 840 320 )")
 			//var cong = geom.NewPolygonFromWKT("POLYGON (( 780 560, 780 580, 800 580, 800 560, 780 560 ))")
 			var polyline = pln.New(coords)
 			options := &opts.Opts{
@@ -30,7 +31,7 @@ func TestToSelfIntersects(t *testing.T) {
 				DistRelation:           false,
 				DirRelation:            false,
 			}
-			var nodes = createNodes(id,[][]int{{0, 5}, {5, 9}, {9, 11}}, coords)
+			var nodes = common.CreateHulls(id,[][]int{{0, 5}, {5, 9}, {9, 11}}, coords)
 
 			g.Assert(len(nodes)).Equal(3)
 			var queue = nodes[:len(nodes):len(nodes)]
@@ -58,7 +59,7 @@ func TestToSelfIntersects(t *testing.T) {
 
 		g.It("should test constrain to self intersects - 2", func() {
 			g.Timeout(1 * time.Hour)
-			var coords = linearCoords("LINESTRING ( 780 480, 750 470, 760 500, 740 520, 860 520, 860 620, 740 620, 740 520, 640 520, 640 420, 841 420, 840 320 )")
+			var coords = common.LinearCoords("LINESTRING ( 780 480, 750 470, 760 500, 740 520, 860 520, 860 620, 740 620, 740 520, 640 520, 640 420, 841 420, 840 320 )")
 			//var cong = geom.NewPolygonFromWKT("POLYGON (( 780 560, 780 580, 800 580, 800 560, 780 560 ))")
 			var polyline = pln.New(coords)
 			options := &opts.Opts{
@@ -72,7 +73,7 @@ func TestToSelfIntersects(t *testing.T) {
 				DistRelation:           false,
 				DirRelation:            false,
 			}
-			var nodes = createNodes(id,[][]int{{0, 5}, {5, 9}, {9, 11}}, coords)
+			var nodes = common.CreateHulls(id,[][]int{{0, 5}, {5, 9}, {9, 11}}, coords)
 
 			g.Assert(len(nodes)).Equal(3)
 			var queue = nodes[:len(nodes):len(nodes)]
@@ -103,7 +104,7 @@ func TestToSelfIntersects(t *testing.T) {
 
 		g.It("should test constrain to self intersects - 3", func() {
 			g.Timeout(1 * time.Hour)
-			var coords = linearCoords("LINESTRING ( 740 380, 720 440, 760 460, 740 520, 860 520, 860 620, 740 620, 740 520, 640 520, 640 420, 841 420, 840 320 )")
+			var coords = common.LinearCoords("LINESTRING ( 740 380, 720 440, 760 460, 740 520, 860 520, 860 620, 740 620, 740 520, 640 520, 640 420, 841 420, 840 320 )")
 			//var cong = geom.NewPolygonFromWKT("POLYGON (( 780 560, 780 580, 800 580, 800 560, 780 560 ))")
 			var polyline = pln.New(coords)
 			options := &opts.Opts{
@@ -117,7 +118,7 @@ func TestToSelfIntersects(t *testing.T) {
 				DistRelation:           false,
 				DirRelation:            false,
 			}
-			var nodes = createNodes(id,[][]int{{0, 3}, {3, 4}, {4, 5}, {5, 6}, {6, 7}, {7, 9}, {9, 11}}, coords)
+			var nodes = common.CreateHulls(id,[][]int{{0, 3}, {3, 4}, {4, 5}, {5, 6}, {6, 7}, {7, 9}, {9, 11}}, coords)
 			g.Assert(len(nodes)).Equal(7)
 			var queue = nodes[:len(nodes):len(nodes)]
 			var constVerts = []int{10}
@@ -140,7 +141,7 @@ func TestToSelfIntersects(t *testing.T) {
 
 		g.It("should test constrain to self intersects - 4", func() {
 			g.Timeout(1 * time.Hour)
-			var coords = linearCoords("LINESTRING ( 300 0, 300 400, 600 600, 600 1000, 900 1000, 900 700, 1300 700, 1400 400, 1600 200, 1300 0, 800 100, 300 0 )")
+			var coords = common.LinearCoords("LINESTRING ( 300 0, 300 400, 600 600, 600 1000, 900 1000, 900 700, 1300 700, 1400 400, 1600 200, 1300 0, 800 100, 300 0 )")
 			var polyline = pln.New(coords)
 			options := &opts.Opts{
 				Threshold:              300.0,
@@ -153,7 +154,7 @@ func TestToSelfIntersects(t *testing.T) {
 				DistRelation:           false,
 				DirRelation:            false,
 			}
-			var nodes = createNodes(id,[][]int{{0, 11}}, coords)
+			var nodes = common.CreateHulls(id,[][]int{{0, 11}}, coords)
 			g.Assert(len(nodes)).Equal(1)
 			var queue = nodes[:len(nodes):len(nodes)]
 			var constVerts = []int{0, 11}
