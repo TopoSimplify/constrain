@@ -19,7 +19,7 @@ func TestToSelfIntersects(t *testing.T) {
 			g.Timeout(1 * time.Hour)
 			var coords = common.LinearCoords("LINESTRING ( 740 380, 720 440, 760 460, 740 520, 860 520, 860 620, 740 620, 740 520, 640 520, 640 420, 841 420, 840 320 )")
 			//var cong = geom.NewPolygonFromWKT("POLYGON (( 780 560, 780 580, 800 580, 800 560, 780 560 ))")
-			var polyline = pln.New(coords)
+			var polyline = pln.CreatePolyline(coords)
 			options := &opts.Opts{
 				Threshold:              1.0,
 				MinDist:                1.0,
@@ -61,7 +61,7 @@ func TestToSelfIntersects(t *testing.T) {
 			g.Timeout(1 * time.Hour)
 			var coords = common.LinearCoords("LINESTRING ( 780 480, 750 470, 760 500, 740 520, 860 520, 860 620, 740 620, 740 520, 640 520, 640 420, 841 420, 840 320 )")
 			//var cong = geom.NewPolygonFromWKT("POLYGON (( 780 560, 780 580, 800 580, 800 560, 780 560 ))")
-			var polyline = pln.New(coords)
+			var polyline = pln.CreatePolyline(coords)
 			options := &opts.Opts{
 				Threshold:              1.0,
 				MinDist:                1.0,
@@ -106,7 +106,7 @@ func TestToSelfIntersects(t *testing.T) {
 			g.Timeout(1 * time.Hour)
 			var coords = common.LinearCoords("LINESTRING ( 740 380, 720 440, 760 460, 740 520, 860 520, 860 620, 740 620, 740 520, 640 520, 640 420, 841 420, 840 320 )")
 			//var cong = geom.NewPolygonFromWKT("POLYGON (( 780 560, 780 580, 800 580, 800 560, 780 560 ))")
-			var polyline = pln.New(coords)
+			var polyline = pln.CreatePolyline(coords)
 			options := &opts.Opts{
 				Threshold:              300.0,
 				MinDist:                300.0,
@@ -142,7 +142,7 @@ func TestToSelfIntersects(t *testing.T) {
 		g.It("should test constrain to self intersects - 4", func() {
 			g.Timeout(1 * time.Hour)
 			var coords = common.LinearCoords("LINESTRING ( 300 0, 300 400, 600 600, 600 1000, 900 1000, 900 700, 1300 700, 1400 400, 1600 200, 1300 0, 800 100, 300 0 )")
-			var polyline = pln.New(coords)
+			var polyline = pln.CreatePolyline(coords)
 			options := &opts.Opts{
 				Threshold:              300.0,
 				MinDist:                300.0,
