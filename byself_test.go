@@ -3,11 +3,11 @@ package constrain
 import (
 	"time"
 	"testing"
-	"github.com/TopoSimplify/opts"
-	"github.com/TopoSimplify/node"
+	"github.com/intdxdt/iter"
 	"github.com/franela/goblin"
 	"github.com/TopoSimplify/hdb"
-	"github.com/intdxdt/iter"
+	"github.com/TopoSimplify/opts"
+	"github.com/TopoSimplify/node"
 	"github.com/TopoSimplify/common"
 )
 

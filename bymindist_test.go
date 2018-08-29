@@ -3,9 +3,9 @@ package constrain
 import (
 	"time"
 	"testing"
+	"github.com/intdxdt/iter"
 	"github.com/franela/goblin"
 	"github.com/TopoSimplify/opts"
-	"github.com/intdxdt/iter"
 	"github.com/TopoSimplify/common"
 )
 

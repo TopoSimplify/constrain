@@ -13,7 +13,8 @@ import (
 
 //Constrain for planar self-intersection
 func ToSelfIntersects( id *iter.Igen,
-	nodes []node.Node, polyline pln.Polyline, options *opts.Opts, constVerts []int,
+	nodes []node.Node, polyline pln.Polyline,
+	options *opts.Opts, constVerts []int,
 ) ([]node.Node, bool, []int) {
 	var atVertexSet = make(map[int]bool)
 	if !options.PlanarSelf {

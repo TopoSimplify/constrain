@@ -11,7 +11,6 @@ import (
 	"github.com/TopoSimplify/opts"
 	"github.com/TopoSimplify/offset"
 	"github.com/TopoSimplify/common"
-	"github.com/TopoSimplify/cmap"
 )
 
 func TestByFeatureClassIntersection(t *testing.T) {
@@ -41,10 +40,9 @@ func TestByFeatureClassIntersection(t *testing.T) {
 			db.Load(hulls)
 
 			var q2 = hulls[0]
-			var cache = cmap.NewCacheMap(2)
 
-			g.Assert(ByFeatureClassIntersection(options, &q1, db, &sels, cache)).IsFalse()
-			g.Assert(ByFeatureClassIntersection(options, &q2, db, &sels, cache)).IsTrue()
+			g.Assert(ByFeatureClassIntersection(options, &q1, db, &sels)).IsFalse()
+			g.Assert(ByFeatureClassIntersection(options, &q2, db, &sels)).IsTrue()
 
 		})
 	})

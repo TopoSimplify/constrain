@@ -1,12 +1,12 @@
 package constrain
 
 import (
+	"github.com/intdxdt/iter"
 	"github.com/TopoSimplify/knn"
 	"github.com/TopoSimplify/ctx"
+	"github.com/TopoSimplify/hdb"
 	"github.com/TopoSimplify/node"
 	"github.com/TopoSimplify/split"
-	"github.com/TopoSimplify/hdb"
-	"github.com/intdxdt/iter"
 	"github.com/TopoSimplify/common"
 )
 
