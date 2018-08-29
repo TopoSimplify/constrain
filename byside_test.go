@@ -1,10 +1,10 @@
 package constrain
 
 import (
-	"github.com/franela/goblin"
 	"time"
 	"testing"
 	"github.com/intdxdt/iter"
+	"github.com/franela/goblin"
 	"github.com/TopoSimplify/common"
 )
 
