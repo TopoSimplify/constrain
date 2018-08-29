@@ -19,7 +19,7 @@ func TestByMinDistRelation(t *testing.T) {
 			var cg_a = ctxGeom("POLYGON (( 660 360, 660 380, 680 380, 680 360, 660 360 ))")
 			var cg_b = ctxGeom("POLYGON (( 660 440, 660 460, 680 460, 680 440, 660 440 ))")
 			var cg_c = ctxGeom("POLYGON (( 660 540, 660 560, 680 560, 700 520, 660 540 ))")
-			var hull = common.CreateHulls(id,[][]int{{0, coords.Len() - 1}}, coords)[0]
+			var hull = common.CreateHulls(id,[][]int{{0, coords.Len() - 1}}, coords, nil)[0]
 			var options = &opts.Opts{MinDist:10}
 
 			g.Assert(ByMinDistRelation(options, &hull, cg_a.AsContextGeometries())).IsTrue() // expands mindist

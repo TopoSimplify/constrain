@@ -31,7 +31,8 @@ func TestToSelfIntersects(t *testing.T) {
 				DistRelation:           false,
 				DirRelation:            false,
 			}
-			var nodes = common.CreateHulls(id,[][]int{{0, 5}, {5, 9}, {9, 11}}, coords)
+			var nodes = common.CreateHulls(id,
+				[][]int{{0, 5}, {5, 9}, {9, 11}}, coords, nil)
 
 			g.Assert(len(nodes)).Equal(3)
 			var queue = nodes[:len(nodes):len(nodes)]
@@ -62,7 +63,7 @@ func TestToSelfIntersects(t *testing.T) {
 			var coords = common.LinearCoords("LINESTRING ( 780 480, 750 470, 760 500, 740 520, 860 520, 860 620, 740 620, 740 520, 640 520, 640 420, 841 420, 840 320 )")
 			//var cong = geom.NewPolygonFromWKT("POLYGON (( 780 560, 780 580, 800 580, 800 560, 780 560 ))")
 			var polyline = pln.CreatePolyline(coords)
-			options := &opts.Opts{
+			var options = &opts.Opts{
 				Threshold:              1.0,
 				MinDist:                1.0,
 				RelaxDist:              1.0,
@@ -73,7 +74,8 @@ func TestToSelfIntersects(t *testing.T) {
 				DistRelation:           false,
 				DirRelation:            false,
 			}
-			var nodes = common.CreateHulls(id,[][]int{{0, 5}, {5, 9}, {9, 11}}, coords)
+			var nodes = common.CreateHulls(id,
+				[][]int{{0, 5}, {5, 9}, {9, 11}}, coords, nil)
 
 			g.Assert(len(nodes)).Equal(3)
 			var queue = nodes[:len(nodes):len(nodes)]
@@ -107,7 +109,7 @@ func TestToSelfIntersects(t *testing.T) {
 			var coords = common.LinearCoords("LINESTRING ( 740 380, 720 440, 760 460, 740 520, 860 520, 860 620, 740 620, 740 520, 640 520, 640 420, 841 420, 840 320 )")
 			//var cong = geom.NewPolygonFromWKT("POLYGON (( 780 560, 780 580, 800 580, 800 560, 780 560 ))")
 			var polyline = pln.CreatePolyline(coords)
-			options := &opts.Opts{
+			var options = &opts.Opts{
 				Threshold:              300.0,
 				MinDist:                300.0,
 				RelaxDist:              300.0,
@@ -118,7 +120,8 @@ func TestToSelfIntersects(t *testing.T) {
 				DistRelation:           false,
 				DirRelation:            false,
 			}
-			var nodes = common.CreateHulls(id,[][]int{{0, 3}, {3, 4}, {4, 5}, {5, 6}, {6, 7}, {7, 9}, {9, 11}}, coords)
+			var nodes = common.CreateHulls(id,
+				[][]int{{0, 3}, {3, 4}, {4, 5}, {5, 6}, {6, 7}, {7, 9}, {9, 11}}, coords, nil)
 			g.Assert(len(nodes)).Equal(7)
 			var queue = nodes[:len(nodes):len(nodes)]
 			var constVerts = []int{10}
@@ -143,7 +146,7 @@ func TestToSelfIntersects(t *testing.T) {
 			g.Timeout(1 * time.Hour)
 			var coords = common.LinearCoords("LINESTRING ( 300 0, 300 400, 600 600, 600 1000, 900 1000, 900 700, 1300 700, 1400 400, 1600 200, 1300 0, 800 100, 300 0 )")
 			var polyline = pln.CreatePolyline(coords)
-			options := &opts.Opts{
+			var options = &opts.Opts{
 				Threshold:              300.0,
 				MinDist:                300.0,
 				RelaxDist:              300.0,
@@ -154,16 +157,14 @@ func TestToSelfIntersects(t *testing.T) {
 				DistRelation:           false,
 				DirRelation:            false,
 			}
-			var nodes = common.CreateHulls(id,[][]int{{0, 11}}, coords)
+			var nodes = common.CreateHulls(id, [][]int{{0, 11}}, coords, nil)
 			g.Assert(len(nodes)).Equal(1)
 			var queue = nodes[:len(nodes):len(nodes)]
 			var constVerts = []int{0, 11}
 
 			options.PlanarSelf = true
 			options.NonPlanarSelf = true
-			var que, bln, _ = ToSelfIntersects(id,
-				queue, polyline, options, constVerts,
-			)
+			var que, bln, _ = ToSelfIntersects(id, queue, polyline, options, constVerts)
 			g.Assert(bln).IsTrue()
 			g.Assert(len(que)).Equal(1)
 		})

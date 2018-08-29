@@ -18,7 +18,8 @@ func TestBySideRelation(t *testing.T) {
 			var cgA = ctxGeom("POLYGON (( 660 360, 660 380, 680 380, 680 360, 660 360 ))")
 			var cgB = ctxGeom("POLYGON (( 660 440, 660 460, 680 460, 680 440, 660 440 ))")
 			var cgC = ctxGeom("POLYGON (( 660 540, 660 560, 680 560, 700 520, 660 540 ))")
-			var hull = common.CreateHulls(id,[][]int{{0, coords.Len() - 1}}, coords)[0]
+			var hull = common.CreateHulls(id,
+				[][]int{{0, coords.Len() - 1}}, coords, nil)[0]
 
 			g.Assert(BySideRelation(&hull, cgA.AsContextGeometries())).IsTrue()
 			g.Assert(BySideRelation(&hull, cgB.AsContextGeometries())).IsFalse()
