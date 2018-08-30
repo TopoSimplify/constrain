@@ -9,15 +9,17 @@ import (
 
 //Constrain for self-intersection as a result of simplification
 //returns boolean : is hull collapsible
-func ByFeatureClassIntersection(options *opts.Opts, hull *node.Node, hulldb *hdb.Hdb,
-	selections *[]*node.Node) bool {
+func ByFeatureClassIntersection(
+	options *opts.Opts,
+	hull *node.Node,
+	db *hdb.Hdb,
+	selections *[]*node.Node,
+) bool {
 	var bln = true
-	//find hull neighbours
-	var hulls = deform.SelectFeatureClass(options, hulldb, hull)
+	var hulls = deform.SelectFeatureClass(options, db, hull)
 	for _, h := range hulls {
-		//if bln & selection contains current hull : bln : false
 		if bln && (h == hull) {
-			bln = false // cmp ref
+			bln = false
 		}
 		*selections = append(*selections, h)
 	}
