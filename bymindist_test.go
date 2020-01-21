@@ -1,12 +1,12 @@
 package constrain
 
 import (
-	"time"
-	"testing"
-	"github.com/intdxdt/iter"
-	"github.com/franela/goblin"
-	"github.com/TopoSimplify/opts"
 	"github.com/TopoSimplify/common"
+	"github.com/TopoSimplify/opts"
+	"github.com/franela/goblin"
+	"github.com/intdxdt/iter"
+	"testing"
+	"time"
 )
 
 func TestByMinDistRelation(t *testing.T) {

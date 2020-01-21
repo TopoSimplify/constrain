@@ -1,14 +1,14 @@
 package constrain
 
 import (
-	"time"
-	"testing"
-	"github.com/TopoSimplify/pln"
-	"github.com/TopoSimplify/opts"
+	"github.com/TopoSimplify/common"
 	"github.com/TopoSimplify/node"
+	"github.com/TopoSimplify/opts"
+	"github.com/TopoSimplify/pln"
 	"github.com/franela/goblin"
 	"github.com/intdxdt/iter"
-	"github.com/TopoSimplify/common"
+	"testing"
+	"time"
 )
 
 func TestToSelfIntersects(t *testing.T) {

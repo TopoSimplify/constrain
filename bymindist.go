@@ -1,9 +1,9 @@
 package constrain
 
 import (
-	"github.com/TopoSimplify/opts"
-	"github.com/TopoSimplify/node"
 	"github.com/TopoSimplify/ctx"
+	"github.com/TopoSimplify/node"
+	"github.com/TopoSimplify/opts"
 	"github.com/TopoSimplify/relate"
 )
 

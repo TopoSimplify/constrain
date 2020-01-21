@@ -1,10 +1,10 @@
 package constrain
 
 import (
+	"github.com/TopoSimplify/deform"
 	"github.com/TopoSimplify/hdb"
 	"github.com/TopoSimplify/node"
 	"github.com/TopoSimplify/opts"
-	"github.com/TopoSimplify/deform"
 )
 
 //Constrain for self-intersection as a result of simplification

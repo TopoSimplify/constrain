@@ -1,11 +1,11 @@
 package constrain
 
 import (
-	"time"
-	"testing"
-	"github.com/intdxdt/iter"
-	"github.com/franela/goblin"
 	"github.com/TopoSimplify/common"
+	"github.com/franela/goblin"
+	"github.com/intdxdt/iter"
+	"testing"
+	"time"
 )
 
 func TestByGeometricRelation(t *testing.T) {

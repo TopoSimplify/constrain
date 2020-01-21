@@ -1,14 +1,14 @@
 package constrain
 
 import (
-	"sort"
-	"github.com/TopoSimplify/node"
-	"github.com/TopoSimplify/pln"
-	"github.com/TopoSimplify/opts"
 	"github.com/TopoSimplify/ctx"
-	"github.com/TopoSimplify/lnr"
 	"github.com/TopoSimplify/hdb"
+	"github.com/TopoSimplify/lnr"
+	"github.com/TopoSimplify/node"
+	"github.com/TopoSimplify/opts"
+	"github.com/TopoSimplify/pln"
 	"github.com/intdxdt/iter"
+	"sort"
 )
 
 //Constrain for planar self-intersection

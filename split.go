@@ -1,13 +1,13 @@
 package constrain
 
 import (
-	"github.com/intdxdt/iter"
-	"github.com/TopoSimplify/knn"
+	"github.com/TopoSimplify/common"
 	"github.com/TopoSimplify/ctx"
 	"github.com/TopoSimplify/hdb"
+	"github.com/TopoSimplify/knn"
 	"github.com/TopoSimplify/node"
 	"github.com/TopoSimplify/split"
-	"github.com/TopoSimplify/common"
+	"github.com/intdxdt/iter"
 )
 
 const EpsilonDist = 1.0e-5
